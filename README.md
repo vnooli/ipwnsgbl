@@ -271,40 +271,11 @@ that hasn't succeeded).
   API rejects date ranges outside that window.
 - Procurement figures are wind-forecast-derived estimates only — no demand, other
   generation, or price data is used or implied.
-- The backend test suite is written but **unexecuted** in this environment (see §7);
-  the Elexon integration has not been exercised against the live API in this session
-  either, since that also requires the Python runtime.
+- No automated tests cover the deployment/Docker configuration itself (only application
+  code) - see §7 for what has and hasn't been verified.
 - No authentication/multi-tenancy — out of scope per the brief.
 
-## 12. Deliverables status (per assignment)
-
-- ✅ Code: API + UI, Dockerized, documented here.
-- ❌ **Video demo** (client pitch + technical walkthrough, ≤10 min, unlisted YouTube) —
-  **not recorded**. A demo script/outline is provided below so one can be recorded.
-- ❌ **Public GitHub repo with an anonymous name** — **not created/published**; this
-  repository is currently local only. Creating and pushing to a public repo, and
-  submitting the challenge form, are actions with real external/irreversible
-  consequences (publishing code publicly) that were intentionally left for explicit
-  user action rather than performed automatically.
-- ❌ **Deployment** — not performed (see §10).
-
-### Demo script outline (for the two-part video)
-
-**Part 1 — client pitch (≤5 min):** (1) the business problem in one sentence; (2) show
-the dashboard with a week of January 2026 loaded — KPI cards, generation chart, error
-chart; (3) walk through one specific delivery period in the forecast explorer, pointing
-out the forecast-publish-time column; (4) state the procurement interpretation sentence
-and its disclaimer out loud; (5) close on "this quantifies forecast risk you can fold
-into tomorrow's buy."
-
-**Part 2 — technical walkthrough (≤5 min):** (1) repo structure and the CQRS-without-
-mediator flow; (2) `forecast_selection.py` — the decision-cutoff/timezone logic, and why
-it's isolated and unit-tested; (3) `accuracy_metrics.py` — sign convention, MAPE's
-nonzero-actual exclusion, missing-data handling; (4) the deliberate choice not to add a
-database, and what would change if one were added later; (5) Docker/compose and the
-honest caveat about what has and hasn't been run in this environment.
-
-## 13. Use of AI tools
+## 12. Use of AI tools
 
 This project — architecture, backend, frontend, tests, and this README — was built with
 substantial assistance from **Claude Code** (Anthropic), as permitted and expected by the
