@@ -11,6 +11,7 @@ API/.env
 node_modules/
 UI/dist/
 UI/.env
+UI/tsconfig.tsbuildinfo
 
 # Editors / OS
 .vscode/
