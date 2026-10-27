@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+API/db.sqlite3
+API/.env
+.pytest_cache/
+
+# Node
+node_modules/
+UI/dist/
+UI/.env
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local AI-assistant tooling config (dev-server preview config), not part
+# of the application
+.claude/
