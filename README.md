@@ -241,25 +241,34 @@ and UI directly on the host instead (see §7), which does hot-reload.
 
 **UI** (`UI/.env`, see `UI/.env.example`): `VITE_API_BASE_URL`.
 
-## 10. Deployment (Vercel / Heroku)
+## 10. Deployment
 
-Planned arrangement, chosen for the stack: **UI → Vercel** (static build of a Vite app),
-**API → Heroku** (Django/gunicorn needs a long-running process, which Vercel's serverless
-model doesn't fit well for this app's shape).
+**Live:**
 
-- **API on Heroku:** add a `Procfile` (`web: gunicorn config.wsgi:application`), set
-  `DJANGO_ALLOWED_HOSTS` and `CORS_ALLOWED_ORIGINS` (to the Vercel URL) as Heroku config
-  vars, and deploy the `API/` subdirectory (`git subtree push` or a monorepo buildpack).
-- **UI on Vercel:** set the project root to `UI/`, build command `npm run build`, output
-  directory `dist`, and set `VITE_API_BASE_URL` to the deployed Heroku API URL as a
-  Vercel environment variable.
-- **CORS:** the Heroku API's `CORS_ALLOWED_ORIGINS` must include the exact Vercel
-  domain; no database/persistent storage is required by either platform.
+- UI: https://veylora-swart-nu.vercel.app/
+- API: https://veylora-api.vercel.app/api/
 
-**This has not actually been deployed in this session** — no deployed URL is given here.
-Do not treat this section as more than a documented plan until a real deployment has
-been performed and verified (per the assignment's own instruction not to claim deployment
-that hasn't succeeded).
+Both the UI and the API are deployed on Vercel - the UI as a static build of the Vite app,
+and the API as a Django app served through Vercel's Python (WSGI) serverless runtime. This
+has been verified working end-to-end: the deployed UI successfully loads real January 2026
+data from the deployed API, computes accuracy metrics, and renders the dashboard.
+
+Key configuration for this arrangement:
+
+- `CORS_ALLOWED_ORIGINS` on the API deployment must include the UI's exact Vercel domain
+  (`https://veylora-swart-nu.vercel.app`), or the browser will block requests with a CORS
+  error that the UI will show as a generic "can't reach the server" state.
+- `VITE_API_BASE_URL` on the UI deployment must point at the deployed API's `/api` base URL.
+- No database/persistent storage is required by either deployment.
+
+**Serverless caching caveat:** the in-memory TTL cache described in §5 is process-local
+(see `API/apps/forecasts/repositories/cache.py`). On Vercel's serverless runtime, each
+request may be served by a fresh or different function instance rather than one long-lived
+process, so that cache is not guaranteed to persist between requests the way it reliably
+does when running as a single process (e.g. in Docker or `runserver`). This does not break
+anything - a cache miss just means the request re-fetches from Elexon instead of using a
+cached value - but it means the caching behaviour described in §5 should be read as "best
+effort" in this deployment, not a guarantee.
 
 ## 11. Known limitations & assumptions
 
