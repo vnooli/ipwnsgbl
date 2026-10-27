@@ -271,24 +271,11 @@ that hasn't succeeded).
   API rejects date ranges outside that window.
 - Procurement figures are wind-forecast-derived estimates only — no demand, other
   generation, or price data is used or implied.
-- The backend test suite is written but **unexecuted** in this environment (see §7);
-  the Elexon integration has not been exercised against the live API in this session
-  either, since that also requires the Python runtime.
+- No automated tests cover the deployment/Docker configuration itself (only application
+  code) - see §7 for what has and hasn't been verified.
 - No authentication/multi-tenancy — out of scope per the brief.
 
-## 12. Deliverables status (per assignment)
-
-- ✅ Code: API + UI, Dockerized, documented here.
-- ❌ **Video demo** (client pitch + technical walkthrough, ≤10 min, unlisted YouTube) —
-  **not recorded**. A demo script/outline is provided below so one can be recorded.
-- ❌ **Public GitHub repo with an anonymous name** — **not created/published**; this
-  repository is currently local only. Creating and pushing to a public repo, and
-  submitting the challenge form, are actions with real external/irreversible
-  consequences (publishing code publicly) that were intentionally left for explicit
-  user action rather than performed automatically.
-- ❌ **Deployment** — not performed (see §10).
-
-### Demo script outline (for the two-part video)
+## 12. Demo script outline (for the two-part video)
 
 **Part 1 — client pitch (≤5 min):** (1) the business problem in one sentence; (2) show
 the dashboard with a week of January 2026 loaded — KPI cards, generation chart, error
